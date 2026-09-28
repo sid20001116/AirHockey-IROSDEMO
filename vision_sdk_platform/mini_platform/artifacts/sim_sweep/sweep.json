@@ -1,0 +1,410 @@
+[
+  {
+    "idx": 1,
+    "kind": "straight",
+    "speed": 3,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 5.3,
+    "min_gap_m": 0.0072,
+    "lane_miss_m": 0.0072,
+    "goal_y": -0.0085,
+    "peak_cmd_qd": 3.43,
+    "peak_mallet_speed": 0.789,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 2,
+    "kind": "straight",
+    "speed": 5,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.2,
+    "min_gap_m": 0.0033,
+    "lane_miss_m": 0.0033,
+    "goal_y": 0.0018,
+    "peak_cmd_qd": 5.249,
+    "peak_mallet_speed": 0.836,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 3,
+    "kind": "straight",
+    "speed": 8,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 6.9,
+    "min_gap_m": 0.0128,
+    "lane_miss_m": 0.0128,
+    "goal_y": -0.0069,
+    "peak_cmd_qd": 4.92,
+    "peak_mallet_speed": 0.811,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 4,
+    "kind": "straight",
+    "speed": 12,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.1,
+    "min_gap_m": 0.0198,
+    "lane_miss_m": 0.0198,
+    "goal_y": -0.0084,
+    "peak_cmd_qd": 1.842,
+    "peak_mallet_speed": 0.088,
+    "t_first_defend": 0.06,
+    "physically_valid": true,
+    "tactics": [
+      "READY",
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 5,
+    "kind": "straight",
+    "speed": 16,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.0,
+    "min_gap_m": 0.0181,
+    "lane_miss_m": 0.0179,
+    "goal_y": -0.0005,
+    "peak_cmd_qd": 0.264,
+    "peak_mallet_speed": 0.053,
+    "t_first_defend": null,
+    "physically_valid": true,
+    "tactics": [
+      "READY"
+    ]
+  },
+  {
+    "idx": 6,
+    "kind": "straight",
+    "speed": 20,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.0,
+    "min_gap_m": 0.0173,
+    "lane_miss_m": 0.0173,
+    "goal_y": -0.0004,
+    "peak_cmd_qd": 1.717,
+    "peak_mallet_speed": 0.082,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 7,
+    "kind": "straight",
+    "speed": 25,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.1,
+    "min_gap_m": 0.0199,
+    "lane_miss_m": 0.0195,
+    "goal_y": -0.0076,
+    "peak_cmd_qd": 0.215,
+    "peak_mallet_speed": 0.053,
+    "t_first_defend": null,
+    "physically_valid": true,
+    "tactics": [
+      "READY"
+    ]
+  },
+  {
+    "idx": 8,
+    "kind": "straight",
+    "speed": 30,
+    "angle": 0.0,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.1,
+    "min_gap_m": 0.0183,
+    "lane_miss_m": 0.0175,
+    "goal_y": -0.0002,
+    "peak_cmd_qd": 0.215,
+    "peak_mallet_speed": 0.053,
+    "t_first_defend": null,
+    "physically_valid": false,
+    "tactics": [
+      "READY"
+    ]
+  },
+  {
+    "idx": 9,
+    "kind": "angle",
+    "speed": 3,
+    "angle": -15.077344451177314,
+    "rail": 0,
+    "outcome": "BLOCKED",
+    "contact": true,
+    "penetration_mm": 8.6,
+    "min_gap_m": 0.0261,
+    "lane_miss_m": 0.0416,
+    "goal_y": null,
+    "peak_cmd_qd": 7.556,
+    "peak_mallet_speed": 0.864,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 10,
+    "kind": "angle",
+    "speed": 5,
+    "angle": 15.077344451177314,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 8.0,
+    "min_gap_m": 0.0267,
+    "lane_miss_m": 0.0272,
+    "goal_y": 0.0268,
+    "peak_cmd_qd": 6.854,
+    "peak_mallet_speed": 0.967,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 11,
+    "kind": "angle",
+    "speed": 8,
+    "angle": -15.077344451177314,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.1,
+    "min_gap_m": 0.0188,
+    "lane_miss_m": 0.0204,
+    "goal_y": -0.0587,
+    "peak_cmd_qd": 8.179,
+    "peak_mallet_speed": 0.865,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 12,
+    "kind": "angle",
+    "speed": 12,
+    "angle": 15.077344451177314,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.0,
+    "min_gap_m": 0.0034,
+    "lane_miss_m": 0.0019,
+    "goal_y": 0.0513,
+    "peak_cmd_qd": 1.867,
+    "peak_mallet_speed": 0.227,
+    "t_first_defend": 0.04,
+    "physically_valid": true,
+    "tactics": [
+      "READY",
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 13,
+    "kind": "angle",
+    "speed": 20,
+    "angle": -15.077344451177314,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.0,
+    "min_gap_m": 0.032,
+    "lane_miss_m": 0.0359,
+    "goal_y": -0.0521,
+    "peak_cmd_qd": 1.227,
+    "peak_mallet_speed": 0.222,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 14,
+    "kind": "angle",
+    "speed": 30,
+    "angle": 15.077344451177314,
+    "rail": 0,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.1,
+    "min_gap_m": 0.0045,
+    "lane_miss_m": 0.0071,
+    "goal_y": 0.0553,
+    "peak_cmd_qd": 0.215,
+    "peak_mallet_speed": 0.053,
+    "t_first_defend": null,
+    "physically_valid": false,
+    "tactics": [
+      "READY"
+    ]
+  },
+  {
+    "idx": 15,
+    "kind": "bank",
+    "speed": 3,
+    "angle": 31.91650093769002,
+    "rail": 1,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 7.6,
+    "min_gap_m": 0.0041,
+    "lane_miss_m": 0.0043,
+    "goal_y": 0.0193,
+    "peak_cmd_qd": 3.328,
+    "peak_mallet_speed": 0.47,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 16,
+    "kind": "bank",
+    "speed": 5,
+    "angle": -31.91650093769002,
+    "rail": -1,
+    "outcome": "BLOCKED",
+    "contact": true,
+    "penetration_mm": 10.9,
+    "min_gap_m": 0.0398,
+    "lane_miss_m": 0.0417,
+    "goal_y": null,
+    "peak_cmd_qd": 8.495,
+    "peak_mallet_speed": 1.036,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND",
+      "READY"
+    ]
+  },
+  {
+    "idx": 17,
+    "kind": "bank",
+    "speed": 8,
+    "angle": 31.91650093769002,
+    "rail": 1,
+    "outcome": "GOAL",
+    "contact": true,
+    "penetration_mm": 4.0,
+    "min_gap_m": 0.0483,
+    "lane_miss_m": 0.0561,
+    "goal_y": 0.0504,
+    "peak_cmd_qd": 5.199,
+    "peak_mallet_speed": 0.867,
+    "t_first_defend": 0.02,
+    "physically_valid": true,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 18,
+    "kind": "bank",
+    "speed": 12,
+    "angle": -31.91650093769002,
+    "rail": -1,
+    "outcome": "GOAL",
+    "contact": false,
+    "penetration_mm": 0.0,
+    "min_gap_m": 0.1063,
+    "lane_miss_m": 0.1194,
+    "goal_y": -0.0314,
+    "peak_cmd_qd": 4.426,
+    "peak_mallet_speed": 0.739,
+    "t_first_defend": 0.02,
+    "physically_valid": null,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 19,
+    "kind": "bank",
+    "speed": 16,
+    "angle": 31.91650093769002,
+    "rail": 1,
+    "outcome": "GOAL",
+    "contact": false,
+    "penetration_mm": 0.0,
+    "min_gap_m": 0.0806,
+    "lane_miss_m": 0.0885,
+    "goal_y": 0.0319,
+    "peak_cmd_qd": 2.316,
+    "peak_mallet_speed": 0.374,
+    "t_first_defend": 0.02,
+    "physically_valid": null,
+    "tactics": [
+      "DEFEND"
+    ]
+  },
+  {
+    "idx": 20,
+    "kind": "bank",
+    "speed": 25,
+    "angle": -31.91650093769002,
+    "rail": -1,
+    "outcome": "GOAL",
+    "contact": false,
+    "penetration_mm": 0.0,
+    "min_gap_m": 0.1144,
+    "lane_miss_m": 0.121,
+    "goal_y": -0.044,
+    "peak_cmd_qd": 1.192,
+    "peak_mallet_speed": 0.211,
+    "t_first_defend": 0.02,
+    "physically_valid": null,
+    "tactics": [
+      "DEFEND"
+    ]
+  }
+]

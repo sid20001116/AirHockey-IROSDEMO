@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+logs/
+# Regenerable tool output. artifacts/reports/ and artifacts/sysid/ ARE tracked:
+# they are the record of how every constant was measured.
+mini_platform/artifacts/vision/
+mini_platform/artifacts/tables/

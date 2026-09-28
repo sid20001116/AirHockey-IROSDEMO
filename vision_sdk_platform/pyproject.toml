@@ -1,0 +1,60 @@
+# Standalone bundle: camera-based puck tracking + the METAL arm SDK's low-level joint
+# controller, with the MuJoCo rig they run on.
+#
+#   pip install -e .
+#
+# Unlike the folder this was carved out of, `mini_platform/` here is a real package
+# directory, so setuptools discovers the subpackages normally -- no package-dir
+# identity mapping, nothing to keep in sync by hand when a module is added.
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-platform"
+version = "0.1.0"
+description = "Camera-based puck tracking and the METAL arm SDK low-level joint controller on a 40x20 in MuJoCo air-hockey rig"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy<2",
+    "mujoco==3.3.1",
+    "mushroom-rl==1.10.1",
+    "osqp>=0.6.2.post8",
+    "nlopt>=2.7.1",
+    "scipy",
+    "PyYAML>=6.0",
+    "dm_control",
+]
+
+[project.optional-dependencies]
+# The vision stack's RUNTIME (vision/, estimation/, fsm/) and the SDK low-level
+# controller (core/sdk_control.py, core/sdk_params.py) need nothing beyond the
+# required deps above -- mujoco + numpy + scipy. Everything below is for the
+# offline tools and the test suite, and every one of these imports is deferred
+# into the function that needs it, so a bare install still runs the controllers.
+#
+#   pillow      tools/vision_eval.py  --mode snapshot (PNGs), --mode live
+#                                     (frame captions, GIF fallback);
+#               tools/mini_mallet_check.py renders
+#   matplotlib  tools/vision_eval.py  --mode live window;
+#               pytest --show-vision
+#   pytest      tests/
+#
+# TODO(human): define the extras. `tools` below is the pre-existing name and is
+# kept so nothing that already uses it breaks.
+tools = ["pillow", "matplotlib"]
+
+[tool.setuptools.packages.find]
+include = ["mini_platform*"]
+
+[tool.setuptools.package-data]
+"mini_platform" = [
+    "assets/*.xml",
+    "assets/meshes/*.STL",
+    # provenance the docs link to; artifacts/vision/ is regenerable and not shipped
+    "artifacts/reports/*.md",
+    "artifacts/reports/img/*.png",
+    "artifacts/sysid/*.json",
+]

@@ -1,0 +1,47 @@
+{
+  "provenance": "measured in MuJoCo (no servo datasheet available)",
+  "model": "siddarth/Desktop/air_hockey_challenge/mini_platform/assets/metal_arm_only.xml",
+  "method": "per joint: saturate actuator force from rest at each of 65 configurations (1 home + 64 uniform-random, seed 0), both signs; q_dot_max = worst-case peak velocity over 3.0s, q_ddot_max = worst-case |qacc| at t=0",
+  "caveat": "inherits damping=2 / armature=0.1 from the MJCF, which are CAD placeholders, not measured -- re-run after sim-to-real system ID (H6)",
+  "n_joints": 6,
+  "joint_vel_limit_rad_s": [
+    10.344543449397769,
+    18.87638701244822,
+    10.100035514176662,
+    13.656915350087822,
+    9.63971053484146,
+    9.960240297737162
+  ],
+  "joint_acc_limit_rad_s2": [
+    39.19132070231049,
+    283.66363415414344,
+    133.90432833075698,
+    261.75934030386173,
+    194.39644668747903,
+    198.8198140462999
+  ],
+  "actuator_force_limit_Nm": [
+    30.0,
+    120.0,
+    30.0,
+    30.0,
+    20.0,
+    20.0
+  ],
+  "per_config_vel_median": [
+    14.046853425489205,
+    23.353035016810207,
+    11.859886181097007,
+    14.002837864763528,
+    9.80187228129711,
+    9.965895550230597
+  ],
+  "per_config_acc_median": [
+    148.9521199141708,
+    303.9859207092831,
+    156.8385797025599,
+    271.81136041938055,
+    194.93463432266375,
+    199.00726804108464
+  ]
+}

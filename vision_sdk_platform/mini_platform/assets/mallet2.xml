@@ -1,0 +1,21 @@
+<mujoco model="mallet_2">
+    <!-- Mallet for arm 2. Identical to mallet1.xml -- see that file for the full rationale. -->
+
+    <worldbody>
+        <body name="mallet_2" pos="0 0 0">
+            <freejoint name="mallet_2/free"/>
+            <inertial pos="0 0 0.0405" mass="0.035" diaginertia="2.6e-05 2.6e-05 1.1e-05"/>
+
+            <geom name="mallet_2/handle" type="box" size="0.005 0.005 0.005" pos="0 0 0"
+                  rgba="0.85 0.75 0.2 1" condim="4" priority="3"
+                  friction="2.0 0.05 0.005" solref="0.004 1" solimp="0.98 0.999 0.0005 0.5 2"/>
+
+            <geom name="mallet_2/post" type="cylinder" size="0.005 0.0125" pos="0 0 0.0175"
+                  rgba="0.4 0.4 0.42 1" condim="4" priority="3" friction="2.0 0.05 0.005"/>
+
+            <geom name="metal_2/ee" type="cylinder" size="0.025 0.015" pos="0 0 0.045"
+                  rgba="0.15 0.15 0.18 1" condim="4" priority="2"
+                  friction="0 0 0" solref="0.02 0.3"/>
+        </body>
+    </worldbody>
+</mujoco>

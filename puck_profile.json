@@ -1,0 +1,28 @@
+{
+  "mode": "hsv",
+  "r_min": 60.0,
+  "r_over_g": 1.6,
+  "r_over_b": 1.6,
+  "b_min": 50.0,
+  "b_over_r": 1.5,
+  "b_over_g": 1.2,
+  "hue_lo": 352.0,
+  "hue_hi": 9.0,
+  "sat_min": 0.59,
+  "val_min": 0.71,
+  "marker_enabled": false,
+  "marker_hue_lo": 200.0,
+  "marker_hue_hi": 260.0,
+  "marker_sat_min": 0.35,
+  "marker_val_min": 0.2,
+  "min_red_area": 20,
+  "bbox_major_range": [
+    3,
+    400
+  ],
+  "gate_ref_height": 360,
+  "bbox_margin": 3,
+  "min_blue_area": 3,
+  "tuned_exposure": 150,
+  "tuned_exposure_auto": 1
+}

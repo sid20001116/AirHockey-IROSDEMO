@@ -1,0 +1,104 @@
+<mujoco model="metal_1">
+    <!-- Robot-only model of the metal arm, base at the origin, used for kinematics and for
+         the inverse-dynamics feed-forward term of the position controller. Mirrors
+         data/iiwas/iiwa_only.xml: exactly the actuated arm joints (6, NOT 7 - joint7/joint8
+         were the gripper fingers and are gone now that the mallet is mounted), and
+         `striker_joint_link` present as a FIXED body so forward_kinematics(link="ee") has a
+         frame to report, with no passive universal joints of its own.
+
+         nq == nv == nu == 6 is load-bearing: position_control_wrapper.PositionControl calls
+         mj_mulM() on this model with an n_joints-length acceleration vector, and
+         utils.kinematics.inverse_kinematics returns the whole qpos. A robot-only model that
+         carries the striker joints breaks both (this is exactly what the full-size
+         data/iiwas/metal_only.xml swap in the working tree gets wrong).
+
+         Geometry is identical to arm1.xml with the base offset removed; visual-only geoms,
+         since nothing collides in this model. -->
+    <compiler angle="radian" autolimits="true" meshdir="meshes"/>
+
+    <default>
+        <default class="vis">
+            <geom contype="0" conaffinity="0" group="1" density="0"/>
+        </default>
+    </default>
+
+    <asset>
+        <mesh name="metal_base_link" file="metal_base_link.STL"/>
+        <mesh name="metal_link1" file="metal_link1.STL"/>
+        <mesh name="metal_link2" file="metal_link2.STL"/>
+        <mesh name="metal_link3" file="metal_link3.STL"/>
+        <mesh name="metal_link4" file="metal_link4.STL"/>
+        <mesh name="metal_link5" file="metal_link5.STL"/>
+        <mesh name="metal_link6" file="metal_link6.STL"/>
+        <mesh name="metal_gripper_base" file="metal_gripper_base.STL"/>
+    </asset>
+
+    <worldbody>
+        <body name="metal_1/base_link" pos="0 0 0">
+            <inertial pos="-9.09789e-05 -1.00839e-06 0.0341143" quat="0.47912 0.521395 -0.477833 0.519872" mass="0.630484" diaginertia="0.000488805 0.000410481 0.000409691"/>
+            <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_base_link" class="vis"/>
+            <body name="metal_1/link1" pos="0 0 0.06675">
+                <inertial pos="0.000681167 -0.000462329 0.0457749" quat="0.707129 -0.00103529 -0.0249186 0.706644" mass="0.465086" diaginertia="0.000349531 0.000229228 0.000228107"/>
+                <joint name="metal_1/joint1" pos="0 0 0" axis="0 0 1" range="-2.79 2.79" actuatorfrcrange="-30 30" damping="2" armature="0.1"/>
+                <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link1" class="vis"/>
+                <body name="metal_1/link2" pos="0.00075 0 0.055" quat="0.707107 0.707107 0 0">
+                    <inertial pos="-0.188834 -0.00103697 -0.000652233" quat="-0.00721702 0.707628 0.00332789 0.70654" mass="1.00848" diaginertia="0.00611042 0.00604296 0.000409528"/>
+                    <joint name="metal_1/joint2" pos="0 0 0" axis="0 0 1" range="-3.14 0" actuatorfrcrange="-120 120" damping="2" armature="0.1"/>
+                    <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link2" class="vis"/>
+                    <body name="metal_1/link3" pos="-0.28 0 0">
+                        <inertial pos="0.133032 0.0530016 0.000290607" quat="0.130686 0.7 -0.105277 0.694146" mass="0.839664" diaginertia="0.00208264 0.00196532 0.000437031"/>
+                        <joint name="metal_1/joint3" pos="0 0 0" axis="0 0 1" range="0 3.14" actuatorfrcrange="-30 30" damping="2" armature="0.1"/>
+                        <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link3" class="vis"/>
+                        <body name="metal_1/link4" pos="0.215 0.063 0">
+                            <inertial pos="0.0666891 0.0612495 0.00493164" quat="0.683317 0.48972 0.476057 0.258111" mass="0.455193" diaginertia="0.000224669 0.000204796 0.000166063"/>
+                            <joint name="metal_1/joint4" pos="0 0 0" axis="0 0 1" range="-2.145 1.413" actuatorfrcrange="-30 30" damping="2" armature="0.1"/>
+                            <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link4" class="vis"/>
+                            <body name="metal_1/link5" pos="0.08 0.052 0.000249998" quat="0.707107 0.707107 0 0">
+                                <inertial pos="0.00248531 1.71804e-05 0.0400786" quat="0.98562 0.0253316 -0.166455 0.0142538" mass="0.373509" diaginertia="0.000167271 0.000150256 0.000138284"/>
+                                <joint name="metal_1/joint5" pos="0 0 0" axis="0 0 1" range="-1.482 1.482" actuatorfrcrange="-20 20" damping="2" armature="0.1"/>
+                                <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link5" class="vis"/>
+                                <body name="metal_1/link6" pos="0.0235 0 0.044" quat="1.41622e-10 -1 0 0">
+                                    <inertial pos="0.0108107 0.000127504 0.000160105" quat="0.915282 0.402814 0.00033145 -0.000634813" mass="0.0724469" diaginertia="3.15032e-05 1.68265e-05 1.65267e-05"/>
+                                    <joint name="metal_1/joint6" pos="0 0 0" axis="1 0 0" range="-2.529 2.529" actuatorfrcrange="-20 20" damping="2" armature="0.1"/>
+                                    <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="metal_link6" class="vis"/>
+                                    <body name="metal_1/gripper_base" pos="0.0758 0 0" quat="5.26836e-09 0.707107 5.26835e-09 0.707107">
+                                        <inertial pos="-0.00722301 -2.86487e-07 -0.028115" quat="0.501628 0.501904 -0.49809 0.498366" mass="0.4361" diaginertia="0.000396221 0.000287705 0.000225235"/>
+                                        <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="metal_gripper_base" class="vis"/>
+                                        <!-- The GRASP FRAME: where the gripper's jaws close on the mallet's
+                                             handle cube. Local +Z is the gripper pointing axis (see arm1.xml),
+                                             so this sits 0.065 m below the wrist in the playing pose, which is
+                                             where the finger pads track the joint travel exactly (measured off
+                                             the finger meshes; see GRASP_OFFSET in environments/mini/env_base.py).
+
+                                             This body is what forward_kinematics(link="ee") reports and what the
+                                             IK targets. It is deliberately a massless frame with no joints: the
+                                             mallet itself is a FREE BODY in the scene model, held only by
+                                             friction, so it has no place in the robot's kinematic chain. The
+                                             planner commands where the grasp point goes; whether the mallet
+                                             actually follows is a question for the physics, and the answer is
+                                             measured, not assumed (tools/mini_grip_check.py). -->
+                                        <body name="metal_1/striker_joint_link" pos="0 0 0.065">
+                                            <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <!-- Torque actuators, matching iiwa_only.xml. PositionControl._controller writes a
+             torque into ctrl and clips it against actuator_ctrlrange, so these must be
+             <motor>, not the <position> servos arm1.xml carries for standalone use. -->
+        <motor name="metal_1/joint1" joint="metal_1/joint1" ctrlrange="-30 30"/>
+        <motor name="metal_1/joint2" joint="metal_1/joint2" ctrlrange="-120 120"/>
+        <motor name="metal_1/joint3" joint="metal_1/joint3" ctrlrange="-30 30"/>
+        <motor name="metal_1/joint4" joint="metal_1/joint4" ctrlrange="-30 30"/>
+        <motor name="metal_1/joint5" joint="metal_1/joint5" ctrlrange="-20 20"/>
+        <motor name="metal_1/joint6" joint="metal_1/joint6" ctrlrange="-20 20"/>
+    </actuator>
+</mujoco>

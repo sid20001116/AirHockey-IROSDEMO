@@ -1,0 +1,51 @@
+<mujoco model="MiniAirHockeySingle">
+
+    <include file="arm1.xml"/>
+    <include file="mallet1.xml"/>
+    <include file="mini_table.xml"/>
+
+    <!-- Rigidly weld the mallet to the gripper. The mallet is welded to the gripper on the REAL
+         robot too, so this is faithful, not a fidelity shortcut: the handle cannot slip or tilt
+         out of the jaws, which is what the friction grip risked on hard strikes. relpose is the
+         exact grasp pose environments/env_base._seat_mallet_in_gripper places it at each reset
+         (mallet origin GRASP_OFFSET=0.065 m along the gripper_base +Z, orientations aligned), so
+         the weld starts satisfied with no snap. NB this weld lives ONLY in the full scene models
+         (mini_single/mini_double), never in arm1.xml, which the arm-only FK model reuses without
+         a mallet. The vertical-wrist hit anchor still matters: a welded but tilted mallet skews
+         the contact normal and rotates the shot (~1.5 deg aim error per deg tilt). -->
+    <equality>
+        <!-- solref/solimp stiffen the weld toward a rigid attachment (a real weld is rigid);
+             solref 0.005 s = 5x the 0.001 s timestep, stiff but stable under the Newton solver. -->
+        <weld body1="metal_1/gripper_base" body2="mallet_1" relpose="0 0 0.065 1 0 0 0"
+              solref="0.005 1" solimp="0.98 0.9999 0.0005 0.5 2"/>
+    </equality>
+
+    <contact>
+        <exclude body1="table_surface" body2="metal_1/base_link"/>
+        <exclude body1="table_surface" body2="metal_1/link1"/>
+        <exclude body1="table_surface" body2="metal_1/link2"/>
+        <exclude body1="table_surface" body2="metal_1/link3"/>
+        <exclude body1="table_surface" body2="metal_1/link4"/>
+        <exclude body1="table_surface" body2="metal_1/link5"/>
+        <exclude body1="table_surface" body2="metal_1/link6"/>
+        <exclude body1="table_surface" body2="metal_1/gripper_base"/>
+        <exclude body1="table_surface" body2="metal_1/link7"/>
+        <exclude body1="table_surface" body2="metal_1/link8"/>
+
+        <exclude body1="rim" body2="metal_1/base_link"/>
+        <exclude body1="rim" body2="metal_1/link1"/>
+        <exclude body1="rim" body2="metal_1/link2"/>
+        <exclude body1="rim" body2="metal_1/link3"/>
+        <exclude body1="rim" body2="metal_1/link4"/>
+        <exclude body1="rim" body2="metal_1/link5"/>
+        <exclude body1="rim" body2="metal_1/link6"/>
+        <exclude body1="rim" body2="metal_1/gripper_base"/>
+        <exclude body1="rim" body2="metal_1/link7"/>
+        <exclude body1="rim" body2="metal_1/link8"/>
+
+        <!-- The mallet is NOT excluded from the table: its frictionless head (mallet1.xml) still
+             rests on and slides along the surface to play the puck. It is now held in the jaws by
+             the weld above rather than by friction, so it stays seated and upright through hard
+             strikes -- but it still contacts the surface for play. -->
+    </contact>
+</mujoco>

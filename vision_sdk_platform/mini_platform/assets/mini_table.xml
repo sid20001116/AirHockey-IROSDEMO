@@ -1,0 +1,118 @@
+<mujoco model="mini_table">
+    <!-- Air-hockey table scaled to 40" L x 20" W x 8.5" H.
+         40x20 is the PLAYING surface (1.016 x 0.508 m); with the rim the outer
+         footprint is 1.10988 x 0.596092 m (43.7 x 23.5 in).
+         Playing-surface top sits at z=0, floor at z=-0.2159, so the table stands 8.5" tall.
+         x and y scale independently (0.521561 / 0.489403) because the original table is
+         1.877:1 and 40x20 is 2:1; round objects and heights use the uniform mean 0.505226. -->
+    <option timestep="0.001" cone="elliptic" impratio="1"/>
+
+    <!-- Offscreen buffer must be at least as large as the biggest camera resolution
+         declared below, or mujoco.Renderer refuses to render at native size. -->
+    <visual>
+        <global offwidth="1920" offheight="1080"/>
+    </visual>
+
+    <asset>
+        <material name="grey" specular="0.5" shininess="0.25" rgba="0.8 0.8 0.8 1"/>
+        <material name="white" specular="0.5" shininess="0.25" rgba="1.0 1.0 1.0 1"/>
+        <material name="red" specular="0.5" shininess="0.25" rgba="1.0 0.0 0.0 1"/>
+        <material name="blue" specular="0.5" shininess="0.25" rgba="0.0 0.0 1.0 1"/>
+
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512"
+                 height="3072"/>
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4"
+                 rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5"
+                  reflectance="0.2"/>
+    </asset>
+
+    <default>
+        <geom condim="4" solref="0.02 0.3"/>
+        <default class="rim">
+            <geom type="box" material="grey" condim="6" friction="10000 0.0 0.0" priority="1"
+                  solref="0.0075 0.1" solimp="0.99 0.999 0.001 0.5 2"/>
+        </default>
+    </default>
+
+    <worldbody>
+        <body name="table">
+            <body name="table_surface">
+                <geom name="surface" type="box" material="white"
+                      size="0.55494 0.298046 0.10795" pos="0 0 -0.10795"
+                      condim="4" friction="0.08 0.08 0.0" priority="1"
+                      solref="0.0125 0.5" solimp="0.9 0.999 0.001 0.5 2"/>
+            </body>
+            <body name="rim">
+                <!-- short sides: box rims (the full-size table uses a mesh; boxes scale cleanly).
+                     Goal mouth is |y| < 0.086 m, i.e. 0.172 m wide -- MEASURED on the real table
+                     2026-09-15 (was 0.122351, the full-size mouth scaled by 0.489403). Each rim
+                     spans |y| 0.086..0.254: half-size 0.084, centred at 0.170. -->
+                <geom name="rim_home_l" class="rim" size="0.0234702 0.084 0.00757839"
+                      pos="-0.53147 0.170 0.00757839"/>
+                <geom name="rim_home_r" class="rim" size="0.0234702 0.084 0.00757839"
+                      pos="-0.53147 -0.170 0.00757839"/>
+                <geom name="rim_away_l" class="rim" size="0.0234702 0.084 0.00757839"
+                      pos="0.53147 0.170 0.00757839"/>
+                <geom name="rim_away_r" class="rim" size="0.0234702 0.084 0.00757839"
+                      pos="0.53147 -0.170 0.00757839"/>
+
+                <geom name="rim_left" class="rim" size="0.55494 0.0220231 0.00757839"
+                      pos="0 0.276023 0.00757839"/>
+                <geom name="rim_right" class="rim" size="0.55494 0.0220231 0.00757839"
+                      pos="0 -0.276023 0.00757839"/>
+            </body>
+        </body>
+
+        <body name="base" pos="0 0 0">
+            <!-- Damping is a FORCE per unit velocity, so it does not carry over from the
+                 full-size table unchanged: what has to match is the deceleration coefficient
+                 damping/mass, which is set by the air film and the puck, not by table size.
+                 The full-size table is 0.005 / 0.01 kg = 0.5 1/s and 2e-6 / 5e-6 = 0.4 1/s;
+                 these reproduce those against this puck's 0.0021838 kg and Izz 6.8244e-07.
+                 Carrying the literals over gave 2.29 1/s, which caps the puck's total travel
+                 at v0/2.29 -- under half the table at any realistic strike speed, so
+                 most shots could never reach the goal.
+                 Provisional: T1.1 replaces this with a fit against the real table. -->
+            <joint name="puck_x" type="slide" axis="1 0 0" damping="1.0919e-3" limited="false"/>
+            <joint name="puck_y" type="slide" axis="0 1 0" damping="1.0919e-3" limited="false"/>
+            <joint name="puck_yaw" type="hinge" axis="0 0 1" damping="2.7298e-7" limited="false"/>
+            <body name="puck">
+                <geom pos="0 0 0.0035" name="puck" type="cylinder" rgba="0 0 0 0"
+                      size="0.025 0.0035" condim="4" priority="0"/>
+                <!-- red site covers the FULL cylinder: top face = detection surface at z=0.007 -->
+                <site pos="0 0 0.0035" name="puck_site" type="cylinder" material="red"
+                      size="0.025 0.0035"/>
+                <!-- marker top sits 0.1 mm proud of the red top: renders on top, no z-fighting -->
+                <site pos="0.0155 0 0.0035" name="puck_marker" type="cylinder" material="blue"
+                      size="0.008 0.0036"/>
+                <inertial pos="0 0 0" mass="0.0021838" diaginertia="3.5014e-07 3.5014e-07 6.8244e-07"/>
+            </body>
+        </body>
+
+        <!-- Fixed table-side camera: middle of the left (+y) long side, level with the
+             rim_left rail at y = 0.298046, 0.3341 m above the playing surface (the
+             physical rig mounts it 0.55 m above the FLOOR, and the floor is at
+             z = -0.2159), optical axis 45 deg below horizontal looking across the
+             table toward -y.
+             xyaxes: image-right = -X, image-up = (-Y,+Z)/sqrt(2); together these put the
+             view direction at (0, -0.7071, -0.7071).
+             Measured coverage of the playing surface on this 1920x1080 (16:9) sensor
+             at this height:
+                 fovy 80 -> 112 deg h-fov -> 97.7%   <- committed (was 94.7% at 0.25 m)
+             fovy 80 is a wide lens; the extra height over the earlier 0.25 m mount
+             relaxes the h-fov requirement and improves coverage. Vision sensor
+             calibration (vision/sensor.py bias/sigma_px defaults) is fitted to THIS
+             pose -- re-run `vision_eval --mode static` after any change here. -->
+        <camera name="table_side_left" pos="0 0.298046 0.3341"
+                xyaxes="-1 0 0  0 -0.7071068 0.7071068"
+                fovy="80" resolution="1920 1080"/>
+
+        <light pos="0 0 3" dir="0 0 -1" directional="true"/>
+        <geom pos="0 0 -0.2159" name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    </worldbody>
+
+    <contact>
+        <exclude body1="puck" body2="table_surface"/>
+    </contact>
+</mujoco>

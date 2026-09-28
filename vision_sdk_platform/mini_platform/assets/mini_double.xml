@@ -1,0 +1,68 @@
+<mujoco model="MiniAirHockeyDouble">
+
+    <include file="arm1.xml"/>
+    <include file="arm2.xml"/>
+    <include file="mallet1.xml"/>
+    <include file="mallet2.xml"/>
+    <include file="mini_table.xml"/>
+
+    <!-- Rigidly weld each mallet to its gripper (welded on the real robots too). See the note in
+         mini_single.xml: relpose is the exact grasp pose _seat_mallet_in_gripper sets, the weld
+         lives only in the full scene model (never arm*.xml), and the vertical-wrist anchor still
+         governs aim. -->
+    <equality>
+        <!-- solref/solimp stiffen toward a rigid weld (see mini_single.xml). -->
+        <weld body1="metal_1/gripper_base" body2="mallet_1" relpose="0 0 0.065 1 0 0 0"
+              solref="0.005 1" solimp="0.98 0.9999 0.0005 0.5 2"/>
+        <weld body1="metal_2/gripper_base" body2="mallet_2" relpose="0 0 0.065 1 0 0 0"
+              solref="0.005 1" solimp="0.98 0.9999 0.0005 0.5 2"/>
+    </equality>
+
+    <contact>
+        <exclude body1="table_surface" body2="metal_1/base_link"/>
+        <exclude body1="table_surface" body2="metal_1/link1"/>
+        <exclude body1="table_surface" body2="metal_1/link2"/>
+        <exclude body1="table_surface" body2="metal_1/link3"/>
+        <exclude body1="table_surface" body2="metal_1/link4"/>
+        <exclude body1="table_surface" body2="metal_1/link5"/>
+        <exclude body1="table_surface" body2="metal_1/link6"/>
+        <exclude body1="table_surface" body2="metal_1/gripper_base"/>
+        <exclude body1="table_surface" body2="metal_1/link7"/>
+        <exclude body1="table_surface" body2="metal_1/link8"/>
+        <exclude body1="table_surface" body2="metal_2/base_link"/>
+        <exclude body1="table_surface" body2="metal_2/link1"/>
+        <exclude body1="table_surface" body2="metal_2/link2"/>
+        <exclude body1="table_surface" body2="metal_2/link3"/>
+        <exclude body1="table_surface" body2="metal_2/link4"/>
+        <exclude body1="table_surface" body2="metal_2/link5"/>
+        <exclude body1="table_surface" body2="metal_2/link6"/>
+        <exclude body1="table_surface" body2="metal_2/gripper_base"/>
+        <exclude body1="table_surface" body2="metal_2/link7"/>
+        <exclude body1="table_surface" body2="metal_2/link8"/>
+
+        <exclude body1="rim" body2="metal_1/base_link"/>
+        <exclude body1="rim" body2="metal_1/link1"/>
+        <exclude body1="rim" body2="metal_1/link2"/>
+        <exclude body1="rim" body2="metal_1/link3"/>
+        <exclude body1="rim" body2="metal_1/link4"/>
+        <exclude body1="rim" body2="metal_1/link5"/>
+        <exclude body1="rim" body2="metal_1/link6"/>
+        <exclude body1="rim" body2="metal_1/gripper_base"/>
+        <exclude body1="rim" body2="metal_1/link7"/>
+        <exclude body1="rim" body2="metal_1/link8"/>
+
+        <exclude body1="rim" body2="metal_2/base_link"/>
+        <exclude body1="rim" body2="metal_2/link1"/>
+        <exclude body1="rim" body2="metal_2/link2"/>
+        <exclude body1="rim" body2="metal_2/link3"/>
+        <exclude body1="rim" body2="metal_2/link4"/>
+        <exclude body1="rim" body2="metal_2/link5"/>
+        <exclude body1="rim" body2="metal_2/link6"/>
+        <exclude body1="rim" body2="metal_2/gripper_base"/>
+        <exclude body1="rim" body2="metal_2/link7"/>
+        <exclude body1="rim" body2="metal_2/link8"/>
+
+        <!-- Mallet heads still rest on and slide along the surface to play; each mallet is held in
+             its jaws by the weld above rather than by friction -- see mini_single.xml. -->
+    </contact>
+</mujoco>

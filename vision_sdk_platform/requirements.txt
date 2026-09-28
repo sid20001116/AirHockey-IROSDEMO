@@ -1,0 +1,17 @@
+# Verified working set. mujoco is pinned: mushroom_rl 1.10.1 predates NumPy 2, and newer
+# mujoco wheels pull NumPy 2 in, which breaks nlopt (compiled against 1.x).
+numpy<2
+mujoco==3.3.1
+mushroom-rl==1.10.1
+osqp>=0.6.2.post8
+nlopt>=2.7.1
+scipy
+PyYAML>=6.0
+dm_control        # mushroom_rl.environments.mujoco imports dm_control.mjcf at module load
+
+# optional -- all three are imported inside the function that needs them, so the
+# environments, the vision sensor and the SDK low-level controller run without them.
+# `pip install -e '.[tools,dev]'` installs the lot; see pyproject.toml.
+# pillow          # tools/vision_eval.py --mode snapshot/live; tools/mini_mallet_check.py
+# matplotlib      # tools/vision_eval.py --mode live; pytest --show-vision
+# pytest          # tests/

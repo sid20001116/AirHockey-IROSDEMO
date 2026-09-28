@@ -1,0 +1,50 @@
+<mujoco model="mallet_1">
+    <!-- Air-hockey mallet for arm 1. A FREE BODY held only by friction between the gripper
+         fingers and its handle cube - there is no weld, no equality and no joint connecting it
+         to the arm. If the grip force drops or the arm accelerates hard enough, it will slip or
+         fall out, exactly as the physical one would.
+
+         Geometry (user-specified):
+             head    50 mm diameter x 30 mm tall cylinder  -> radius 0.025, half-height 0.015
+             handle  10 mm cube                            -> half-size 0.005
+             post    connects the two
+
+         The body frame origin is at the CENTRE OF THE HANDLE CUBE, which is the grasp point.
+         environments/mini/env_base.py places this frame at the gripper's grasp frame on reset,
+         so the cube starts centred between the jaws. Local +Z runs from the handle down toward
+         the table, matching the gripper's pointing axis.
+
+         Stack, in local +Z from the handle centre (world z with the grasp point at 0.060):
+             handle cube   -0.005 .. +0.005   (world 0.065 .. 0.055)
+             post          +0.005 .. +0.030   (world 0.055 .. 0.030)
+             head          +0.030 .. +0.060   (world 0.030 .. 0.000, i.e. resting on the table)
+
+         The 0.025 m post exists so the fingertips clear the head: the fingers reach 0.0264
+         below the grasp point, which would otherwise put them inside the 30 mm head.
+
+         Friction is split by purpose:
+           handle  mu = 2.0, priority 3 -> beats the fingers' default 1.0. This is what holds
+                   the mallet up, so it is the number to raise if it slips.
+           head    frictionless, priority 2 -> beats the table's 0.08 and the puck's default,
+                   so the head slides freely on the surface and imparts no tangential impulse
+                   to the puck (mu_m ~ 0, optimal_control.md 3.1, matching the iiwa's
+                   friction="0 0 0" striker). -->
+
+    <worldbody>
+        <body name="mallet_1" pos="0 0 0">
+            <freejoint name="mallet_1/free"/>
+            <inertial pos="0 0 0.0405" mass="0.035" diaginertia="2.6e-05 2.6e-05 1.1e-05"/>
+
+            <geom name="mallet_1/handle" type="box" size="0.005 0.005 0.005" pos="0 0 0"
+                  rgba="0.85 0.75 0.2 1" condim="4" priority="3"
+                  friction="2.0 0.05 0.005" solref="0.004 1" solimp="0.98 0.999 0.0005 0.5 2"/>
+
+            <geom name="mallet_1/post" type="cylinder" size="0.005 0.0125" pos="0 0 0.0175"
+                  rgba="0.4 0.4 0.42 1" condim="4" priority="3" friction="2.0 0.05 0.005"/>
+
+            <geom name="metal_1/ee" type="cylinder" size="0.025 0.015" pos="0 0 0.045"
+                  rgba="0.15 0.15 0.18 1" condim="4" priority="2"
+                  friction="0 0 0" solref="0.02 0.3"/>
+        </body>
+    </worldbody>
+</mujoco>
